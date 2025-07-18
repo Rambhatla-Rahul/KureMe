@@ -2,6 +2,11 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import './index.css';
 import './app.css';
+import { UserProvider } from "@/contexts/UserContext";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { Toast, Toaster } from "../components/ui/toaster.jsx";
+import ClientProviders from "@/components/ClientProvider";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,7 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "MedCenter - Professional Healthcare Services | Your Health is Our Priority",
+  title: "KureMe - Professional Healthcare Services | Your Health is Our Priority",
   description:
     "Experience world-class healthcare with MedCenter. Our expert medical team provides comprehensive services including cardiology, neurology, orthopedics, and emergency care. Book your appointment today.",
   authors: [{ name: "MedCenter Healthcare" }],
@@ -47,7 +52,13 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <UserProvider>
+          <SidebarProvider>
+            {children}
+            <ClientProviders/>
+          </SidebarProvider>
+        </UserProvider>
+        
       </body>
     </html>
   );

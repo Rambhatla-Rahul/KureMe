@@ -5,38 +5,38 @@ const Services = () => {
   const services = [
     {
       icon: Heart,
-      title: "Cardiology",
-      description: "Comprehensive heart care including diagnostics, treatment, and preventive care.",
+      title: "All Health Details",
+      description: "Check all you health details in one place easily and securely. (coming soon...)",
       color: "text-red-500"
     },
     {
       icon: Brain,
-      title: "Neurology",
-      description: "Expert care for neurological conditions and brain health disorders.",
+      title: "Upload reports",
+      description: "Upload and retrieve your medical reports at your convenience. (coming soon...)",
       color: "text-purple-500"
     },
     {
       icon: Bone,
-      title: "Orthopedics",
-      description: "Specialized treatment for bone, joint, and musculoskeletal conditions.",
+      title: "Consult a Specialist",
+      description: "Book appointments or lab testings in one click. (coming soon...)",
       color: "text-blue-500"
     },
     {
       icon: Eye,
-      title: "Ophthalmology",
-      description: "Complete eye care services from routine exams to advanced surgery.",
+      title: "Analysis",
+      description: "Using our expert AI and doctor overview gain insights into your health issues. (coming soon...)",
       color: "text-green-500"
     },
     {
       icon: Baby,
       title: "Pediatrics",
-      description: "Dedicated healthcare services for infants, children, and adolescents.",
+      description: "Dedicated healthcare services for infants, children, and adolescents. (coming soon...)",
       color: "text-pink-500"
     },
     {
       icon: Stethoscope,
       title: "General Medicine",
-      description: "Primary care and preventive medicine for overall health and wellness.",
+      description: "Primary care and preventive medicine for overall health and wellness. (coming soon...)",
       color: "text-indigo-500"
     }
   ];
@@ -67,7 +67,7 @@ const Services = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-gray-600 text-center leading-relaxed">
+                  <CardDescription className={`text-gray-600 text-center leading-relaxed`}>
                     {service.description}
                   </CardDescription>
                 </CardContent>
