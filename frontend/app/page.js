@@ -11,9 +11,7 @@ import UserContext from "@/contexts/UserContext";
 import { useContext, useEffect } from "react";
 
 export default function Home() {
-  const { user, loading } = useContext(UserContext);
-  console.log(user);
-  
+  const { loading } = useContext(UserContext);
   if (loading) return (
   <div className="fixed w-screen h-screen flex items-center justify-center bg-gray-100">
     <div className='flex items-center justify-center w-[100px] h-[100px] bg-gray-200 rounded-lg shadow-lg'>
@@ -22,11 +20,9 @@ export default function Home() {
   </div>
 )
   return (
-    <div className="min-h-screen">
-      <div className="flex w-full h justify-center items-center ">
-        
+    <div className="min-h-screen bg-gradient-to-br from-[#0054b4] from-0% to-[#67a77b]">
+      <div className="flex w-full h justify-center items-center ">   
             <Navbar/>
-        
       </div>
       <div className="pt-8"> 
         <Hero />

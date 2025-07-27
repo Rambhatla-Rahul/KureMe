@@ -4,7 +4,7 @@ import './index.css';
 import './app.css';
 import { UserProvider } from "@/contexts/UserContext";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { Toast, Toaster } from "../components/ui/toaster.jsx";
+
 import ClientProviders from "@/components/ClientProvider";
 
 
@@ -50,12 +50,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
         <UserProvider>
           <SidebarProvider>
-            {children}
             <ClientProviders/>
+            {children}
           </SidebarProvider>
         </UserProvider>
         

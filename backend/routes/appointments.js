@@ -6,8 +6,11 @@ const router = express.Router();
 
 router.post('/', verifyToken, async (req, res) => {
   try {
-    console.log('This',req.body);
-    const newAppointment = await createAppointment(req.body.formData, req.user.uid);
+    const decodedUser = req.user;
+    if (!decodedUser) {
+      return res.status(401).json({ message: 'Unauthorized' });
+     }
+    const newAppointment = await createAppointment(req.body.formData);
     res.status(201).json(newAppointment);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -16,7 +19,11 @@ router.post('/', verifyToken, async (req, res) => {
 
 router.get('/', verifyToken, async (req, res) => {
   try {
-    const appointments = await getAppointments(req.user.uid);    
+    const decodedUser = req.user;    
+    if (!decodedUser) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+    const appointments = await getAppointments(decodedUser.uid);
     res.status(200).json(appointments);
   } catch (err) {
     res.status(500).json({ error: err.message });

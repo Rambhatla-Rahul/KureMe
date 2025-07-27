@@ -1,8 +1,6 @@
 const admin =  require('../utils/firebaseAdmin.js');
 
-async function verifyToken(req, res, next) {  
-  
-  
+async function verifyToken(req, res, next) {
   const authHeader = req.headers.authorization;
   const token = authHeader?.split('Bearer ')[1];
   if (!token) {
@@ -10,7 +8,7 @@ async function verifyToken(req, res, next) {
   }
   try {
     const decoded = await admin.auth().verifyIdToken(token);
-    req.user = decoded;    
+    req.user = decoded;
     next();
   } catch (err) {
     console.error('Token verification failed:', err.message);

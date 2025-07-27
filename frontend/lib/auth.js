@@ -10,9 +10,10 @@ import {
 import { auth } from "./firebase"; // Your initialized auth instance
 
 // Sign up with email and password
-export const signUpWithEmailPassword = async (email, password) => {
+export const signUpWithEmailPassword = async (email, password,displayName='') => {
   try {
     const result = await createUserWithEmailAndPassword(auth, email, password);
+    result.user.displayName = displayName;
     return result.user;
   } catch (error) {
     console.error("Signup error:", error);

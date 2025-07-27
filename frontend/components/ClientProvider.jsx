@@ -1,8 +1,8 @@
 "use client";
 
-import { Toaster } from "./ui/toaster";
+import { Toaster } from 'sonner';
 
 export default function ClientProviders() {
   
-  return <Toaster />;
+  return <Toaster richColors/>;
 }

@@ -4,19 +4,24 @@ import React, { useContext, useState } from 'react';
 import { CalendarDays, Clock, User, ClipboardList, LoaderCircle } from 'lucide-react';
 import UserContext from '@/contexts/UserContext';
 import axios from 'axios';
-import { useToast } from '@/hooks/use-toast';
+import { toast } from 'sonner';
 
 const NewAppointmentForm = ({appointments,setAppointments,setIsOpen}) => {
+  const [doctorList,setDoctorList] = useState([
+    { id: 'dr-smith', name: 'Dr. Smith' },
+    { id: 'dr-johnson', name: 'Dr. Johnson' },
+    { id: 'dr-lee', name: 'Dr. Lee' },
+  ]);
   const {user,loading} = useContext(UserContext);
   const [formData, setFormData] = useState({
-    doctor: '',
+    patientId: user?.uid || '',
+    doctorId: '',
     date: '',
     time: '',
     reason: '',
-    status: 'Pending',
+    status: 'scheduled',
   });
   const [loadingSpinner,setLoadingSpinner] = useState(false);
-  
   
   const handleChange = (e) => {
     setFormData((prev) => ({
@@ -24,29 +29,35 @@ const NewAppointmentForm = ({appointments,setAppointments,setIsOpen}) => {
       [e.target.name]: e.target.value,
     }));
   };
-
-  const {toast} = useToast();
   
   const handleSubmit = async (e) => {
     e.preventDefault();
     try{
       setLoadingSpinner(true);
       const response = await createAppointment();
-        console.log('Response => ',response);
         if(response){
           setAppointments((prev)=>([
                   ...prev,
                   formData,
               ]));
           setIsOpen(false);
-          toast({
-            title:'Success',
-            description:'New appointment created Succesfully!',
-            duration:3000,
-            variant: "default",
+          toast.success('New Appointment Created Successfully!', {
+            duration: 3000,
+            className: 'w-[200px] border-green-500 font-semibold whitespace-none text-wrap',
+            position: 'top-right'
+          });
+        }
+        else{
+          toast.error('Error Creating New Appointment!',{
+            description: 'We encountered an unexpected error! Please try again later.',
+            duration: 3000,
+            className: 'w-[200px] border-red-500 shadow-md font-semibold text-sm md:text-base text-red-600 font-medium tracking-wide',
+            position: 'top-right',
           })
+          setIsOpen(false);
         }
     }catch(e){
+          
           console.log(e.message);
     }
     setLoadingSpinner(false);
@@ -67,7 +78,7 @@ const NewAppointmentForm = ({appointments,setAppointments,setIsOpen}) => {
           }
     }
   return (
-    <div className="max-w-lg mx-auto mt-10 p-6 bg-white rounded-lg shadow-xl fadeIn" onClick={(e)=>{
+    <div className="max-w-lg mx-auto mt-10 p-6 bg-white/50 rounded-lg shadow-xl fadeIn" onClick={(e)=>{
                         e.stopPropagation();
                         return;
                     }}>
@@ -80,17 +91,20 @@ const NewAppointmentForm = ({appointments,setAppointments,setIsOpen}) => {
             Choose Doctor
           </label>
           <select
-            name="doctor"
+            name="doctorId"
             id="doctor"
             className="mt-1 p-2 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
-            value={formData.doctor}
+            value={formData.doctorId}
             onChange={handleChange}
             required
           >
             <option value="" disabled>Select a doctor</option>
-            <option value="dr-smith">Dr. Smith</option>
-            <option value="dr-johnson">Dr. Johnson</option>
-            <option value="dr-lee">Dr. Lee</option>
+
+            {doctorList.map((doctor) => (
+              <option key={doctor.id} value={doctor.id}>
+                {doctor.name}
+              </option>
+            ))}
           </select>
         </div>
         <div className="flex flex-col">
